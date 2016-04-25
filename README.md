@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/vandium-io/event-validator.svg?branch=master)](https://travis-ci.org/vandium-io/event-validator)
+[![Build Status](https://travis-ci.org/vandium-io/lov.svg?branch=master)](https://travis-ci.org/vandium-io/lov)
 
-# event-validator
+# Lightweight Object Validator (lov)
 
-Replacement validator for JOI - work in progress
+Replacement validator for Joi (which is excellent but too heavy for use with smaller environments)
