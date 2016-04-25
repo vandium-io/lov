@@ -1,7 +1,14 @@
 {
-  "name": "event-validator",
+  "name": "lov",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lightweight Object Validator (lov) - lighter alternative to joi",
+  "keywords": [
+      "validation",
+      "joi",
+      "light",
+      "lightweight",
+      "schema"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive",
