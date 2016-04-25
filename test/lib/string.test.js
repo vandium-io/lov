@@ -59,6 +59,11 @@ describe( 'lib/string', function() {
 
                 expect( new StringValidator().convert() ).to.equal( undefined );
             });
+
+            it( 'with email()', function() {
+
+                expect( new StringValidator().email().convert( 'info@vandium.io' ) ).to.equal( 'info@vandium.io' );
+            });
         });
 
         describe( '.min', function() {
@@ -115,13 +120,142 @@ describe( 'lib/string', function() {
                 expect( validator.validate( 'STR' ) ).to.equal( 'STR' );
             });
 
-            it( 'fail when when regex test fails', function() {
+            it( 'fail: when when regex test fails', function() {
 
                 let re = /[A-Z]+/;
 
                 let validator = new StringValidator().regex( re );
 
                 expect( validator.validate.bind( validator, 'str' ) ).to.throw( 'failed regex' );
+            });
+
+            it( 'fail: when regex is missing', function() {
+
+                let validator = new StringValidator();
+
+                expect( validator.regex.bind( validator ) ).to.throw( 'missing regex' );
+            });
+        });
+
+        describe( '.uuid', function() {
+
+            it( 'normal operation', function() {
+
+                const uuid = '7cc56260-fa41-4043-a1fb-669ae8f9b216';
+
+                let validator = new StringValidator();
+
+                expect( validator.uuid() ).to.equal( validator );
+
+                expect( validator.validate( uuid ) ).to.equal( uuid );
+            });
+
+            it( 'fail: when uuid is invalid', function() {
+
+                const uuid = '7cc56260-fa41-4043-a1fb-669ae8f9b2166';   // extra '6'
+
+                let validator = new StringValidator();
+
+                expect( validator.uuid() ).to.equal( validator );
+
+                expect( validator.validate.bind( validator, uuid ) ).to.throw( 'failed regex' );
+            });
+        });
+
+        describe( '.guid', function() {
+
+            it( 'normal operation', function() {
+
+                const guid = '7cc56260-fa41-4043-a1fb-669ae8f9b216';
+
+                let validator = new StringValidator();
+
+                expect( validator.guid() ).to.equal( validator );
+
+                expect( validator.validate( guid ) ).to.equal( guid );
+            });
+
+            it( 'fail: when uuid is invalid', function() {
+
+                const guid = '7cc56260-fa41-4043-a1fb-669ae8f9b2166';   // extra '6'
+
+                let validator = new StringValidator();
+
+                expect( validator.guid() ).to.equal( validator );
+
+                expect( validator.validate.bind( validator, guid ) ).to.throw( 'failed regex' );
+            });
+        });
+
+        describe( '.insensitive', function() {
+
+            it( 'without valid() values', function() {
+
+                expect( new StringValidator().insensitive().validate( 'str' ) ).to.equal( 'str' );
+            });
+
+            it( 'with valid() values', function() {
+
+                expect( new StringValidator().insensitive().valid( 'Str', 'num' ).validate( 'str' ) ).to.equal( 'str' );
+            });
+        });
+
+        describe( '.lowercase', function() {
+
+            it( 'normal operation', function() {
+
+                expect( new StringValidator().lowercase().validate( 'Str' ) ).to.equal( 'str' );
+            });
+
+            it( 'used after uppercase()', function() {
+
+                expect( new StringValidator().uppercase().lowercase().validate( 'Str' ) ).to.equal( 'str' );
+            });
+        });
+
+        describe( '.uppercase', function() {
+
+            it( 'normal operation', function() {
+
+                expect( new StringValidator().uppercase().validate( 'Str' ) ).to.equal( 'STR' );
+            });
+
+            it( 'used after lowercase()', function() {
+
+                expect( new StringValidator().lowercase().uppercase().validate( 'Str' ) ).to.equal( 'STR' );
+            });
+        });
+
+        describe( '.email', function() {
+
+            it( 'normal operation', function() {
+
+                expect( new StringValidator().email().validate( 'info@vandium.io' ) ).to.equal( 'info@vandium.io' );
+            });
+
+            it( 'with uppercase() and trim()', function() {
+
+                expect( new StringValidator().email().trim().uppercase().validate( '   info@vandium.io ' ) ).to.equal( 'INFO@VANDIUM.IO' );
+            });
+        });
+
+        describe( '.valid', function() {
+
+            it( 'case sensitive - matching', function() {
+
+                expect( new StringValidator().valid( 'this', 'that' ).validate( 'this' ) ).to.equal( 'this' );
+            });
+
+            it( 'case sensitive - not matching', function() {
+
+                let validator = new StringValidator();
+
+                expect( validator.valid( 'this', 'that' ).validate.bind( validator, 'This' ) ).to.throw( 'does not match valid value(s)' );
+            });
+
+            it( 'with insensitive()', function() {
+
+                expect( new StringValidator().valid( 'this', 'that' ).insensitive().validate( 'This' ) ).to.equal( 'This' );
             });
         });
     });
