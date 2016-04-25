@@ -117,9 +117,15 @@ describe( 'lib/index', function() {
                 date: '2000-01-01'
             };
 
+
             index.validate( data, schema );
 
-            expect( data ).to.eql( { str: 'Hello', num: 42, choice: 'that', yes: true, obj: { c: true }, date: new Date( '2000-01-01T05:00:00.000Z' ) } );
+            expect( data.str ).to.equal( 'Hello' );
+            expect( data.num ).to.equal( 42 );
+            expect( data.choice ).to.equal( 'that' );
+            expect( data.yes ).to.be.true;
+            expect( data.obj ).to.eql( { c: true } );
+            expect( data.date.getTime() ).to.equal( 946702800000 );
         });
     });
 });
