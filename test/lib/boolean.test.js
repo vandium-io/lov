@@ -39,6 +39,20 @@ describe( 'lib/boolean', function() {
                     expect( validator.convert( value ) ).to.be.false;
                 });
             });
+
+            it( 'empty value', function() {
+
+                let validator = new BooleanValidator();
+
+                expect( validator.convert() ).to.not.exist;
+            });
+
+            it( 'fail: when value is invalid', function() {
+
+                let validator = new BooleanValidator();
+
+                expect( validator.convert.bind( validator, '1' ) ).to.throw( 'not a boolean value' );
+            });
         });
     });
 });
