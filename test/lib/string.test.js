@@ -124,7 +124,5 @@ describe( 'lib/string', function() {
                 expect( validator.validate.bind( validator, 'str' ) ).to.throw( 'failed regex' );
             });
         });
-
-        describe( '' )
     });
 });
