@@ -125,7 +125,9 @@ describe( 'lib/index', function() {
             expect( data.choice ).to.equal( 'that' );
             expect( data.yes ).to.be.true;
             expect( data.obj ).to.eql( { c: true } );
-            expect( data.date.getTime() ).to.equal( 946702800000 );
+            expect( data.date.getUTCFullYear() ).to.equal( 2000 );
+            expect( data.date.getUTCMonth() ).to.equal( 0 );
+            expect( data.date.getUTCDate() ).to.equal( 1 );
         });
     });
 });
