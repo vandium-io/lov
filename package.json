@@ -1,18 +1,24 @@
 {
-  "name": "event-validator",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "vandium software",
-  "license": "BSD",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.4.5"
-  },
-  "dependencies": {
-    "email-validator": "^1.0.4"
-  }
+    "name": "event-validator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "./node_modules/.bin/mocha --recursive",
+        "coverage": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- -R spec --recursive"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vandium-io/event-validator.git"
+    },
+    "author": "vandium software",
+    "license": "BSD",
+    "dependencies": {
+        "email-validator": "^1.0.4"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "istanbul": "^0.4.3",
+        "mocha": "^2.4.5"
+    }
 }
