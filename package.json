@@ -1,0 +1,18 @@
+{
+  "name": "event-validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vandium software",
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "email-validator": "^1.0.4"
+  }
+}
