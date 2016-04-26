@@ -260,8 +260,8 @@ describe( 'lib/validate', function() {
 
             let results = validate( data, schema, { wantResults: true } );
 
-            expect( results.err ).to.exist;
-            expect( results.err.message ).to.equal( 'special: bad value' );
+            expect( results.error ).to.exist;
+            expect( results.error.message ).to.equal( 'special: bad value' );
 
             expect( v1.validate.calledOnce ).to.be.true;
             expect( v1.validate.withArgs( 'fred' ).calledOnce ).to.be.true;
