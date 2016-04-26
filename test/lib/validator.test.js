@@ -43,6 +43,39 @@ describe( 'lib/validate', function() {
             expect( v2.validate.withArgs( 28 ).calledOnce ).to.be.true;
         });
 
+        it( 'normal operation, allowAdditional = true', function() {
+
+            let v1 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let v2 = { validate: sinon.stub().returns( 42 ) };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2,
+            };
+
+            let data = {
+
+                name: 'fred',
+
+                special: 28,
+
+                other: '43'
+            };
+
+            validate( data, schema, { allowAdditional: true } );
+
+            expect( data ).to.eql( { name: 'fred', special: 42, other: '43' } );
+
+            expect( v1.validate.calledOnce ).to.be.true;
+            expect( v1.validate.withArgs( 'fred' ).calledOnce ).to.be.true;
+
+            expect( v2.validate.calledOnce ).to.be.true;
+            expect( v2.validate.withArgs( 28 ).calledOnce ).to.be.true;
+        });
+
         it( 'normal operation, callback', function() {
 
             let v1 = { validate: sinon.stub().returnsArg( 0 ) };
@@ -268,6 +301,99 @@ describe( 'lib/validate', function() {
 
             expect( v2.validate.calledOnce ).to.be.true;
             expect( v2.validate.withArgs( 28 ).calledOnce ).to.be.true;
+        });
+
+        it( 'fail: when additional values are present, single item', function() {
+
+            let v1 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let v2 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2
+            };
+
+            let data = {
+
+                name: 'fred',
+
+                special: 28,
+
+                extra: 42
+            };
+
+            expect( validate.bind( null, data, schema ) ).to.throw( '"extra" is not allowed' );
+
+            expect( v1.validate.called ).to.be.false;
+
+            expect( v2.validate.called ).to.be.false;
+        });
+
+        it( 'fail: when additional values are present, two items', function() {
+
+            let v1 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let v2 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2
+            };
+
+            let data = {
+
+                name: 'fred',
+
+                special: 28,
+
+                extra: 42,
+
+                extra2: 43
+            };
+
+            expect( validate.bind( null, data, schema ) ).to.throw( '"extra" and "extra2" are not allowed' );
+
+            expect( v1.validate.called ).to.be.false;
+
+            expect( v2.validate.called ).to.be.false;
+        });
+
+        it( 'fail: when additional values are present, more than 2 items', function() {
+
+            let v1 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let v2 = { validate: sinon.stub().returnsArg( 0 ) };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2
+            };
+
+            let data = {
+
+                name: 'fred',
+
+                special: 28,
+
+                extra: 42,
+
+                extra2: 43,
+
+                extra3: 44
+            };
+
+            expect( validate.bind( null, data, schema ) ).to.throw( '"extra", "extra2", and "extra3" are not allowed' );
+
+            expect( v1.validate.called ).to.be.false;
+
+            expect( v2.validate.called ).to.be.false;
         });
     });
 });
