@@ -36,6 +36,14 @@ describe( 'lib/date', function() {
                 expect( new DateValidator().convert( value ) ).to.equal( value );
             });
 
+            it( 'milliseconds', function() {
+
+                let value = Date.now();
+
+                expect( new DateValidator().convert( value ) ).to.eql( new Date( value ) );
+            });
+
+
             it( 'date string', function() {
 
                 let value = "2001-12-25";
