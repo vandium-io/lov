@@ -18,8 +18,8 @@
     "type": "git",
     "url": "https://github.com/vandium-io/event-validator.git"
   },
-  "author": "vandium software",
-  "license": "BSD",
+  "author": "Vandium Software, Inc.",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "email-validator": "^1.0.4",
     "fecha": "^2.1.0"
