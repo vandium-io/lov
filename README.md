@@ -3,15 +3,16 @@
 
 # Lightweight Object Validator (lov)
 
-Validates objects based on validation schemas. Originally designed as a lightweight replacement validator for the popular
+Validates objects based on validation schemas. Originally designed as a lightweight replacement for the popular
 [Joi](https://github.com/hapijs/joi) library (which is excellent but too heavy for use with smaller/lighter environments such as AWS Lambda).
 
 ## Features
 
-* Programatic construction of validation objects
+* Programatic creation of validator objects using a fluent API
 * Automatic conversion of values (strings to numbers, etc.)
 * Lightweight with minimal dependencies
 * Low startup overhead and quick execution
+* Compatible with base Joi API
 * Node.js 4.3.2 compatible
 
 ## Installation
