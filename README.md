@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/vandium-io/lov.svg?branch=master)](https://travis-ci.org/vandium-io/lov)
+[![npm version](https://badge.fury.io/js/lov.svg)](https://badge.fury.io/js/lov)
 
 # Lightweight Object Validator (lov)
 
