@@ -116,7 +116,7 @@ describe( 'lib/validate', function() {
             expect( v2.validate.withArgs( 28 ).calledOnce ).to.be.true;
         });
 
-        it( 'normal operation, options.wantResults = true', function() {
+        it( 'normal operation with options.updateValues = true', function() {
 
             let v1 = { validate: sinon.stub().returnsArg( 0 ) };
 
@@ -137,9 +137,9 @@ describe( 'lib/validate', function() {
             };
 
 
-            let results = validate( data, schema, { wantResults: true } );
+            let results = validate( data, schema, { updateValues: true } );
 
-            expect( data ).to.eql( { name: 'fred', special: 28 } );
+            expect( data ).to.eql( { name: 'fred', special: 42 } );
             expect( results.value ).to.eql( { name: 'fred', special: 42 } );
 
             expect( v1.validate.calledOnce ).to.be.true;
@@ -210,6 +210,37 @@ describe( 'lib/validate', function() {
 
             expect( v2.validate.calledOnce ).to.be.true;
             expect( v2.validate.withArgs().calledOnce ).to.be.true;
+        });
+
+        it( 'schema validator', function() {
+
+            let v = { validate: sinon.stub().returns( 'A' ) };
+
+            let result = validate( 'a', v );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.equal( 'A' );
+
+            expect( v.validate.calledOnce ).to.be.true;
+            expect( v.validate.withArgs( 'a' ).calledOnce ).to.be.true;
+        });
+
+        it( 'schema validator with alternatives using short form brackets', function() {
+
+            let v1 = { validate: sinon.stub().throws( new Error( '!!!' ) ) };
+            let v2 = { validate: sinon.stub().returns( 'A' ) };
+
+            let result = validate( 'a', [ v1, v2 ] );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.equal( 'A' );
+
+            expect( v1.validate.calledOnce ).to.be.true;
+            expect( v1.validate.withArgs( 'a' ).calledOnce ).to.be.true;
+
+            expect( v2.validate.calledOnce ).to.be.true;
+            expect( v2.validate.withArgs( 'a' ).calledOnce ).to.be.true;
+
         });
 
         it( 'fail: when error detected during validation', function() {

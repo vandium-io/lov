@@ -100,7 +100,9 @@ describe( 'lib/index', function() {
 
                 anything: [ index.number(), index.string() ],
 
-                mustChoose: index.either( index.number(), index.string() ).required()
+                mustChoose: index.either( index.number(), index.string() ).required(),
+
+                alt: index.alternatives().try( index.number(), index.string() ).required()
             };
 
             let data = {
@@ -122,7 +124,9 @@ describe( 'lib/index', function() {
 
                 anything: '44',
 
-                mustChoose: 'forty-four'
+                mustChoose: 'forty-four',
+
+                alt: 'forty-4'
             };
 
 
@@ -139,6 +143,7 @@ describe( 'lib/index', function() {
             expect( result.value.date.getUTCDate() ).to.equal( 1 );
             expect( result.value.anything ).to.equal( 44 );
             expect( result.value.mustChoose ).to.equal( 'forty-four' );
+            expect( result.value.alt ).to.equal( 'forty-4' );
         });
     });
 });
