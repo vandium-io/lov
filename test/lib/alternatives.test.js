@@ -41,7 +41,7 @@ describe( 'lib/alternatives', function() {
                 expect( validator._validators ).to.eql( [ stringValidator ] );
             });
 
-            it( 'called smore than once sequentially', function() {
+            it( 'called more than once sequentially', function() {
 
                 let validator = new AlternativesValidator();
 
