@@ -44,11 +44,13 @@ let data = {
 
 try {
 
+    console.log( 'original data:' );
     console.log( data );
 
-    lov.validate( data, schema );
+    let result = lov.validate( data, schema );
 
-    console.log( data );
+    console.log( 'validated:' );
+    console.log( result.value );
 }
 catch( err ) {
 
