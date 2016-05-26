@@ -118,16 +118,17 @@ describe( 'lib/index', function() {
             };
 
 
-            index.validate( data, schema );
+            let result = index.validate( data, schema );
 
-            expect( data.str ).to.equal( 'Hello' );
-            expect( data.num ).to.equal( 42 );
-            expect( data.choice ).to.equal( 'that' );
-            expect( data.yes ).to.be.true;
-            expect( data.obj ).to.eql( { c: true } );
-            expect( data.date.getUTCFullYear() ).to.equal( 2000 );
-            expect( data.date.getUTCMonth() ).to.equal( 0 );
-            expect( data.date.getUTCDate() ).to.equal( 1 );
+            expect( result.error ).to.be.null;
+            expect( result.value.str ).to.equal( 'Hello' );
+            expect( result.value.num ).to.equal( 42 );
+            expect( result.value.choice ).to.equal( 'that' );
+            expect( result.value.yes ).to.be.true;
+            expect( result.value.obj ).to.eql( { c: true } );
+            expect( result.value.date.getUTCFullYear() ).to.equal( 2000 );
+            expect( result.value.date.getUTCMonth() ).to.equal( 0 );
+            expect( result.value.date.getUTCDate() ).to.equal( 1 );
         });
     });
 });

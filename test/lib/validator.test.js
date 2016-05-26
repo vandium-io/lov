@@ -32,9 +32,11 @@ describe( 'lib/validate', function() {
                 special: 28
             };
 
-            validate( data, schema );
+            let result = validate( data, schema );
 
-            expect( data ).to.eql( { name: 'fred', special: 42 } );
+            expect( data ).to.eql( { name: 'fred', special: 28 } );
+            expect( result.error ).to.equal( null );
+            expect( result.value ).to.eql( { name: 'fred', special: 42 } );
 
             expect( v1.validate.calledOnce ).to.be.true;
             expect( v1.validate.withArgs( 'fred' ).calledOnce ).to.be.true;
@@ -65,9 +67,11 @@ describe( 'lib/validate', function() {
                 other: '43'
             };
 
-            validate( data, schema, { allowAdditional: true } );
+            let result = validate( data, schema, { allowAdditional: true } );
 
-            expect( data ).to.eql( { name: 'fred', special: 42, other: '43' } );
+            expect( data ).to.eql( { name: 'fred', special: 28 , other: '43' } );
+            expect( result.error ).to.equal( null );
+            expect( result.value ).to.eql( { name: 'fred', special: 42, other: '43' } );
 
             expect( v1.validate.calledOnce ).to.be.true;
             expect( v1.validate.withArgs( 'fred' ).calledOnce ).to.be.true;
@@ -228,7 +232,10 @@ describe( 'lib/validate', function() {
                 special: 28
             };
 
-            expect( validate.bind( null, data, schema ) ).to.throw( 'special: bad value' );
+            let result = validate( data, schema );
+
+            expect( result.error.message ).to.contain( 'special: bad value' );
+            expect( result.value ).to.eql( data );
 
             expect( v1.validate.calledOnce ).to.be.true;
             expect( v1.validate.withArgs( 'fred' ).calledOnce ).to.be.true;
@@ -325,10 +332,12 @@ describe( 'lib/validate', function() {
                 extra: 42
             };
 
-            expect( validate.bind( null, data, schema ) ).to.throw( '"extra" is not allowed' );
+            let result = validate( data, schema );
+
+            expect( result.error.message ).to.contain( '"extra" is not allowed' );
+            expect( result.value ).to.eql( data );
 
             expect( v1.validate.called ).to.be.false;
-
             expect( v2.validate.called ).to.be.false;
         });
 
@@ -356,7 +365,10 @@ describe( 'lib/validate', function() {
                 extra2: 43
             };
 
-            expect( validate.bind( null, data, schema ) ).to.throw( '"extra" and "extra2" are not allowed' );
+            let result = validate( data, schema );
+
+            expect( result.error.message ).to.contain( '"extra" and "extra2" are not allowed' );
+            expect( result.value ).to.eql( data );
 
             expect( v1.validate.called ).to.be.false;
 
@@ -389,7 +401,10 @@ describe( 'lib/validate', function() {
                 extra3: 44
             };
 
-            expect( validate.bind( null, data, schema ) ).to.throw( '"extra", "extra2", and "extra3" are not allowed' );
+            let result = validate( data, schema );
+
+            expect( result.error.message ).to.contain( '"extra", "extra2", and "extra3" are not allowed' );
+            expect( result.value ).to.eql( data );
 
             expect( v1.validate.called ).to.be.false;
 
