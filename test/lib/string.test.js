@@ -25,9 +25,16 @@ describe( 'lib/string', function() {
                 expect( new StringValidator().convert( ' str ' ) ).to.equal( ' str ' );
             });
 
-            it( 'non-string value', function() {
+            it( 'nnumber value', function() {
 
                 expect( new StringValidator().convert( 12345 ) ).to.equal( '12345' );
+                expect( new StringValidator().convert( 12345.6789 ) ).to.equal( '12345.6789' );
+            });
+
+            it( 'boolean value', function() {
+
+                expect( new StringValidator().convert( true ) ).to.equal( 'true' );
+                expect( new StringValidator().convert( false ) ).to.equal( 'false' );
             });
 
             it( 'with trim()', function() {

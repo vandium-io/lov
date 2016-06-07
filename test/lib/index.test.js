@@ -146,4 +146,30 @@ describe( 'lib/index', function() {
             expect( result.value.alt ).to.equal( 'forty-4' );
         });
     });
+
+    describe( 'regression', function() {
+
+        it( 'empty string', function() {
+
+            let result = index.validate( '', index.string().trim().min(1).max(42) );
+
+            expect( result.value ).to.equal( '' );
+        });
+
+        it( 'undefined string', function() {
+
+            let result = index.validate( undefined, index.string().trim().min(1).max(42) );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.equal( undefined );
+        });
+
+        it( 'null string', function() {
+
+            let result = index.validate( null, index.string().trim().min(1).max(42) );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.be.null;
+        });
+    });
 });
