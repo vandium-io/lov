@@ -71,6 +71,13 @@ describe( 'lib/string', function() {
 
                 expect( new StringValidator().email().convert( 'info@vandium.io' ) ).to.equal( 'info@vandium.io' );
             });
+
+            it( 'fail: when value is an object', function() {
+
+                let validator = new StringValidator();
+
+                expect( validator.convert.bind( validator, {} ) ).to.throw( 'must be a string' );
+            });
         });
 
         describe( '.min', function() {
