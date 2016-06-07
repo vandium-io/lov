@@ -1,6 +1,6 @@
 {
   "name": "lov",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Lightweight Object Validator (lov) - lighter alternative to joi",
   "keywords": [
       "validation",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vandium-io/event-validator.git"
+    "url": "https://github.com/vandium-io/lov.git"
   },
   "author": "Vandium Software, Inc.",
   "license": "BSD-3-Clause",
