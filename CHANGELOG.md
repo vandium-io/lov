@@ -1,10 +1,13 @@
 # Change Log
 
-## 1.1.1 (2016-06-07)
+## 1.2.0 (2016-06-08)
+
+Improved:
+
+* String validator calling `toString()` on objects an other values that should not be parsed.
 
 Fixed:
 
-* String validator calling `toString()` on objects an other values that should not be parsed.
 * Single value case for `undefined` values was causing a new object to be created.
 
 ## 1.1.0 (2016-05-26)
