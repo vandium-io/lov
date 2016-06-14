@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.2.1 (2016-06-14)
+
+Fixed:
+
+* Empty values were being assigned value of `undefined` when empty.
+
+
 ## 1.2.0 (2016-06-08)
 
 Improved:
