@@ -186,7 +186,7 @@ describe( 'lib/validate', function() {
         });
 
 
-        it( 'empty values', function() {
+        it( 'empty values with validator returning value', function() {
 
             let v1 = { validate: sinon.stub().returnsArg( 0 ) };
 
@@ -201,9 +201,64 @@ describe( 'lib/validate', function() {
 
             let data;
 
-            validate( data, schema );
+            let result = validate( data, schema );
 
-            expect( data ).to.not.exist;
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.eql( { special: 42 } );
+
+            expect( v1.validate.calledOnce ).to.be.true;
+            expect( v1.validate.withArgs().calledOnce ).to.be.true;
+
+            expect( v2.validate.calledOnce ).to.be.true;
+            expect( v2.validate.withArgs().calledOnce ).to.be.true;
+        });
+
+        it( 'empty values', function() {
+
+            let v1 = { validate: sinon.stub() };
+
+            let v2 = { validate: sinon.stub() };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2
+            };
+
+            let data;
+
+            let result = validate( data, schema );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.eql( { } );
+
+            expect( v1.validate.calledOnce ).to.be.true;
+            expect( v1.validate.withArgs().calledOnce ).to.be.true;
+
+            expect( v2.validate.calledOnce ).to.be.true;
+            expect( v2.validate.withArgs().calledOnce ).to.be.true;
+        });
+
+        it( 'empty values with undefined values', function() {
+
+            let v1 = { validate: sinon.stub() };
+
+            let v2 = { validate: sinon.stub() };
+
+            let schema = {
+
+                name: v1,
+
+                special: v2
+            };
+
+            let data = { name: undefined };
+
+            let result = validate( data, schema );
+
+            expect( result.error ).to.be.null;
+            expect( result.value ).to.eql( { name: undefined } );
 
             expect( v1.validate.calledOnce ).to.be.true;
             expect( v1.validate.withArgs().calledOnce ).to.be.true;
