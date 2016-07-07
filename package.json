@@ -1,6 +1,6 @@
 {
   "name": "lov",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Lightweight Object Validator (lov) - lighter alternative to joi",
   "keywords": [
       "validation",
