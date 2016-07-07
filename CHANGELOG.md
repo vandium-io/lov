@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.1 (2016-07-07)
+
+### Fixed:
+
+* Email validation not working properly
+
 ## 1.3.0 (2016-06-21)
 
 ### New:
