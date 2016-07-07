@@ -251,6 +251,13 @@ describe( 'lib/string', function() {
 
                 expect( new StringValidator().email().trim().uppercase().validate( '   info@vandium.io ' ) ).to.equal( 'INFO@VANDIUM.IO' );
             });
+
+            it( 'fail: when invalid email address is used', function() {
+
+                let validator = new StringValidator().email();
+
+                expect( validator.validate.bind( validator, 'fred' ) ).to.throw( 'invalid email address' );
+            });
         });
 
         describe( '.valid', function() {
